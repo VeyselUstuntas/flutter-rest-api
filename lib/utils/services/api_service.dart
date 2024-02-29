@@ -17,8 +17,17 @@ class APIService{
     for(var i in responseList){
       var commentsModelObj = CommentsModel.fromJson(i);
       comments.add(commentsModelObj);
+
     }
 
     return comments;
+  }
+
+  Future<http.Response> postComments(CommentsModel model) async{
+    final response = await http.post(
+        Uri.parse(url),
+        headers: <String,String>{'Content-Type': 'application/json; charset=UTF-8',},
+        body: jsonEncode(model.toJson()));
+    return response;
   }
 }
